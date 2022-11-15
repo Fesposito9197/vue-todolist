@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
         <title>Document</title>
     </head>
@@ -19,18 +22,22 @@
 
 
             <form class="new-task" @submit.prevent="addTodo">
-                <input type="text" placeholder="Inserisci task" v-model="newTodo" required>
+                <input type="text" placeholder="Inserisci task" v-model="newTodo" required minlength="4">
                 <button type="submit">Aggiungi</button>
             </form>
     
             <div class="tasks-container">
-                <ul>
-                    <li class="task" v-for="(todo , index) in todoList" :class="{isdone:todo.done}">
+                <ul v-if="todoList.length > 0">
+                    <li class="task d-flex" v-for="(todo , index) in todoList" :class="{isdone:todo.done}" >
                         {{todo.text}}
-                        <i class="fa-solid fa-check" @click="completedTodo(index)"></i>
-                        <i class="fa-solid fa-xmark" @click="removeTodo(index)"></i>
+                        <div>
+                            <i class="fa-solid fa-check" @click="completedTodo(index)"></i>
+                            <i class="fa-solid fa-xmark" @click="removeTodo(index)"></i>
+
+                        </div>
                     </li>
                 </ul>
+                <h2 v-else>Oggi non hai nulla da fare!!!</h2>
             </div>
         </div>
 
